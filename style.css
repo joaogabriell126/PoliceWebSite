@@ -148,9 +148,28 @@ button:hover {
     background-color: #ffb74d;
 }
 
+/* NOVO: Estilo para o botão desabilitado */
+button:disabled {
+    background-color: #555;
+    color: #888;
+    cursor: not-allowed;
+}
+
 /* Classes de Utilidade */
 .hidden {
     display: none !important;
+}
+
+/* NOVO: Mensagem de Informação/Tentativas */
+.info-message {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: rgba(252, 163, 17, 0.15);
+    border: 1px solid #fca311;
+    border-radius: 4px;
+    color: #fca311;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 /* Mensagem de Sucesso */

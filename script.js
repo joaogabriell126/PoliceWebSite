@@ -1,18 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- CONFIGURAÇÃO DO ENIGMA ---
-    // Altere os valores abaixo para as respostas corretas do seu enigma.
-    // O texto deve ser exatamente igual, incluindo maiúsculas e minúsculas.
     const CORRECT_ANSWERS = {
-        date: "12/12/2024",
-        place: "Pequena floresta",
+        date: "12/12/1967",
+        place: "300,950",
         time: "22:17",
         name: "Marina Medeiros"
     };
+    let nameAttempts = 2; // Número de tentativas para o nome
     // ---------------------------------
 
     // Pega os elementos do HTML
     const confirmButton = document.getElementById('confirm-button');
+    const successMessage = document.getElementById('success-message');
+    const attemptsMessage = document.getElementById('attempts-message'); // Pega a nova div
 
     const dateGroup = document.getElementById('date-group');
     const dateInput = document.getElementById('date-input');
@@ -30,10 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nameInput = document.getElementById('name-input');
     const nameStatus = document.getElementById('name-status');
 
-    const successMessage = document.getElementById('success-message');
-
-    // --- NOVO CÓDIGO ADICIONADO ---
-    // Função que remove o status de 'correto' ou 'incorreto' assim que o usuário digita.
     const addResetListener = (inputElement, statusElement) => {
         inputElement.addEventListener('input', () => {
             if (!inputElement.disabled) {
@@ -42,48 +39,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Aplica a função de reset para cada campo de input
     addResetListener(dateInput, dateStatus);
     addResetListener(placeInput, placeStatus);
     addResetListener(timeInput, timeStatus);
     addResetListener(nameInput, nameStatus);
-    // --- FIM DO CÓDIGO ADICIONADO ---
 
 
-    // Função para verificar a resposta e atualizar a interface
     const checkAnswer = (inputElement, statusElement, correctAnswer, nextGroup) => {
-        // .trim() remove espaços em branco no início e fim
         if (inputElement.value.trim() === correctAnswer) {
             statusElement.classList.remove('incorrect');
             statusElement.classList.add('correct');
-            inputElement.disabled = true; // Desativa o campo após acertar
+            inputElement.disabled = true;
 
             if (nextGroup) {
-                nextGroup.classList.remove('hidden'); // Mostra o próximo campo
+                nextGroup.classList.remove('hidden');
+                // Se o próximo grupo for o do NOME, mostra a mensagem de tentativas
+                if (nextGroup === nameGroup) {
+                    attemptsMessage.textContent = `Atenção: Você tem apenas ${nameAttempts} tentativas.`;
+                    attemptsMessage.classList.remove('hidden');
+                }
             } else {
-                // Se não há próximo grupo, é o fim do enigma
                 successMessage.classList.remove('hidden');
-                confirmButton.classList.add('hidden'); // Opcional: esconde o botão
+                confirmButton.classList.add('hidden');
+                attemptsMessage.classList.add('hidden');
             }
+            return true; // Retorna sucesso
         } else {
             statusElement.classList.remove('correct');
             statusElement.classList.add('incorrect');
+            return false; // Retorna falha
         }
     };
 
-    // Adiciona o evento de clique ao botão
     confirmButton.addEventListener('click', () => {
-        // Verifica qual campo está visível para validar a resposta correta
+        // Lógica para os primeiros campos
         if (!dateGroup.classList.contains('hidden') && !dateInput.disabled) {
             checkAnswer(dateInput, dateStatus, CORRECT_ANSWERS.date, placeGroup);
         } else if (!placeGroup.classList.contains('hidden') && !placeInput.disabled) {
             checkAnswer(placeInput, placeStatus, CORRECT_ANSWERS.place, timeGroup);
         } else if (!timeGroup.classList.contains('hidden') && !timeInput.disabled) {
             checkAnswer(timeInput, timeStatus, CORRECT_ANSWERS.time, nameGroup);
+        
+        // Lógica especial de tentativas para o campo NOME
         } else if (!nameGroup.classList.contains('hidden') && !nameInput.disabled) {
-            // O "nextGroup" é nulo aqui, indicando que é a última resposta
-            checkAnswer(nameInput, nameStatus, CORRECT_ANSWERS.name, null);
+            const isCorrect = (nameInput.value.trim() === CORRECT_ANSWERS.name);
+
+            if (isCorrect) {
+                // Se acertar, segue o fluxo normal de sucesso
+                checkAnswer(nameInput, nameStatus, CORRECT_ANSWERS.name, null);
+            } else {
+                // Se errar, decrementa as tentativas
+                nameAttempts--;
+                nameStatus.classList.add('incorrect');
+                nameInput.value = ""; // Limpa o campo para a próxima tentativa
+
+                if (nameAttempts <= 0) {
+                    // Se acabarem as tentativas
+                    attemptsMessage.textContent = "Tentativas esgotadas. Acesso bloqueado.";
+                    attemptsMessage.style.color = "#e74c3c"; // Mensagem de erro em vermelho
+                    attemptsMessage.style.borderColor = "#c0392b";
+                    nameInput.placeholder = "ACESSO BLOQUEADO";
+                    nameInput.disabled = true;
+                    confirmButton.disabled = true; // Desabilita o botão
+                } else {
+                    // Se ainda houver tentativas
+                    const plural = nameAttempts > 1 ? 's' : '';
+                    attemptsMessage.textContent = `Incorreto. Você tem mais ${nameAttempts} tentativa${plural}.`;
+                }
+            }
         }
     });
-
 });
