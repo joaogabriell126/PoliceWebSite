@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Verificação de Pistas</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <h1>Departamento de Investigações Confidenciais</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="enigma-container">
+            <h2>Preencha os dados corretamente</h2>
+
+            <div id="date-group" class="input-group">
+                <label for="date-input">Data:</label>
+                <div class="input-wrapper">
+                    <input type="text" id="date-input" placeholder="ex: 01/01/2025">
+                    <div id="date-status" class="status-indicator"></div>
+                </div>
+            </div>
+
+            <div id="place-group" class="input-group hidden">
+                <label for="place-input">Local:</label>
+                <div class="input-wrapper">
+                    <input type="text" id="place-input" placeholder="ex: Doca 7">
+                    <div id="place-status" class="status-indicator"></div>
+                </div>
+            </div>
+
+            <div id="time-group" class="input-group hidden">
+                <label for="time-input">Hora:</label>
+                <div class="input-wrapper">
+                    <input type="text" id="time-input" placeholder="ex: 23:00">
+                    <div id="time-status" class="status-indicator"></div>
+                </div>
+            </div>
+
+            <div id="name-group" class="input-group hidden">
+                <label for="name-input">Nome:</label>
+                <div class="input-wrapper">
+                    <input type="text" id="name-input" placeholder="ex: O Coringa">
+                    <div id="name-status" class="status-indicator"></div>
+                </div>
+            </div>
+
+            <button id="confirm-button">Confirmar Informação</button>
+
+            <div id="success-message" class="hidden">
+                <p>Meus parabéns, pelo o que parece você já tem todas as informações, corra antes que seja tarde.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
