@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Altere os valores abaixo para as respostas corretas do seu enigma.
     // O texto deve ser exatamente igual, incluindo maiúsculas e minúsculas.
     const CORRECT_ANSWERS = {
-        date: "15/06/2025",
-        place: "Armazém Abandonado",
-        time: "20:23",
-        name: "Sombra"
+        date: "12/12/2024",
+        place: "Pequena floresta",
+        time: "22:17",
+        name: "Marina Medeiros"
     };
     // ---------------------------------
 
