@@ -118,12 +118,12 @@ input[type="text"]:disabled {
 }
 
 .status-indicator.correct {
-    background-color: #2ecc71; /* Verde */
+    background-color: #2ecc71; 
     border-color: #27ae60;
 }
 
 .status-indicator.incorrect {
-    background-color: #e74c3c; /* Vermelho */
+    background-color: #e74c3c; 
     border-color: #c0392b;
 }
 

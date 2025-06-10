@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- CONFIGURAÇÃO DO ENIGMA ---
     const CORRECT_ANSWERS = {
-        date: "12/12/1967",
+        date: "12/12/1987",
         place: "300,950",
         time: "22:17",
         name: "Marina Medeiros"
